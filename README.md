@@ -1,2 +1,3 @@
 # chempany
-synthesize reactant and sell product!
+Synthesize reactant and sell product!
+The name comes from chemistry and company.
