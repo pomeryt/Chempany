@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.page.contract.Displayable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -54,22 +55,18 @@ public final class TitlePage implements Displayable {
 		bExit.setStyle("-fx-font-size:25");
 		bExit.setPrefWidth(150);
 		
-		final GridPane gridbuttons = new GridPane();
-		gridbuttons.addColumn(0, bNew, bLoad, bOption, bExit);
-		gridbuttons.setAlignment(Pos.CENTER);
-		gridbuttons.setVgap(8);
+		final GridPane gridButtons = new GridPane();
+		gridButtons.addColumn(0, bNew, bLoad, bOption, bExit);
+		gridButtons.setAlignment(Pos.CENTER);
+		gridButtons.setVgap(8);
+		gridButtons.setPadding(new Insets(100, 0, 0, 0));
 		
 		final StackPane pane = new StackPane();
 		pane.getChildren().add(lTitle);
-		pane.getChildren().add(gridbuttons);
+		pane.getChildren().add(gridButtons);
 		StackPane.setAlignment(lTitle, Pos.TOP_CENTER);
 		
-		
-		
-		
 		final Scene scene = new Scene(pane);
-		
-	
 		
 		// Cache the scene:
 		this.cache.add(scene);		
