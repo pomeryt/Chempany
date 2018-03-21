@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.page.contract.Displayable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public final class TitlePage implements Displayable {
@@ -25,9 +30,49 @@ public final class TitlePage implements Displayable {
 		}
 		
 		// Build scene:
+		final Label lTitle = new Label();
+		lTitle.setText("Alchemy");
+		lTitle.setStyle("-fx-font-size:100");
+		
+		final Button bNew = new Button();
+		bNew.setText("New");
+		bNew.setStyle("-fx-font-size:25");
+		bNew.setPrefWidth(150);
+		
+		final Button bLoad = new Button();
+		bLoad.setText("Load");
+		bLoad.setStyle("-fx-font-size:25");
+		bLoad.setPrefWidth(150);
+		
+		final Button bOption = new Button();
+		bOption.setText("Option");
+		bOption.setStyle("-fx-font-size:25");
+		bOption.setPrefWidth(150);
+		
+		final Button bExit = new Button();
+		bExit.setText("Exit");
+		bExit.setStyle("-fx-font-size:25");
+		bExit.setPrefWidth(150);
+		
+		final GridPane gridbuttons = new GridPane();
+		gridbuttons.addColumn(0, bNew, bLoad, bOption, bExit);
+		gridbuttons.setAlignment(Pos.CENTER);
+		gridbuttons.setVgap(8);
+		
+		final StackPane pane = new StackPane();
+		pane.getChildren().add(lTitle);
+		pane.getChildren().add(gridbuttons);
+		StackPane.setAlignment(lTitle, Pos.TOP_CENTER);
+		
+		
+		
+		
+		final Scene scene = new Scene(pane);
+		
+	
 		
 		// Cache the scene:
-		
+		this.cache.add(scene);		
 		return this.cache.get(0);
 	}
 	
