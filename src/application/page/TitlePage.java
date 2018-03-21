@@ -54,6 +54,9 @@ public final class TitlePage implements Displayable {
 		bExit.setText("Exit");
 		bExit.setStyle("-fx-font-size:25");
 		bExit.setPrefWidth(150);
+		bExit.setOnAction(e->{
+			this.stage.close();
+		});
 		
 		final GridPane gridButtons = new GridPane();
 		gridButtons.addColumn(0, bNew, bLoad, bOption, bExit);
@@ -69,7 +72,7 @@ public final class TitlePage implements Displayable {
 		final Scene scene = new Scene(pane);
 		
 		// Cache the scene:
-		this.cache.add(scene);		
+		this.cache.add(scene);
 		return this.cache.get(0);
 	}
 	
