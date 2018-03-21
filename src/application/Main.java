@@ -9,7 +9,7 @@ public class Main extends Application {
 	public void start(final Stage stage) {
 		try {
 			
-			stage.setTitle("Chempany");
+			stage.setTitle("Alchemy");
 			stage.setWidth(825);
 			stage.setHeight(550);
 			stage.show();
