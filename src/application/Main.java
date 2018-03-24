@@ -16,7 +16,7 @@ public class Main extends Application {
 			// TitlePage
 			final TitlePage titlePage = new TitlePage(stage);
 			titlePage.addNewEvent(()->{
-				mainPage.display();
+				// mainPage.display();
 			});
 			titlePage.display();
 			

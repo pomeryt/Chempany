@@ -3,7 +3,6 @@ package application.page;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.page.contract.Displayable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,13 +13,12 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import plain.contract.event.PlainEvent;
 
-public final class TitlePage implements Displayable {
+public final class TitlePage {
 
 	public TitlePage(final Stage stage) {
 		this.stage = stage;
 	}
 	
-	@Override
 	public void display() {
 		this.stage.setScene(this.scene());
 	}
