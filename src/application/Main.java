@@ -11,12 +11,13 @@ public class Main extends Application {
 	public void start(final Stage stage) {
 		try {
 			// MainPage
-			final MainPage mainPage = new MainPage();
+			final MainPage mainPage = new MainPage(stage);
+			
 			
 			// TitlePage
 			final TitlePage titlePage = new TitlePage(stage);
 			titlePage.addNewEvent(()->{
-				// mainPage.display();
+				mainPage.display();
 			});
 			titlePage.display();
 			
