@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import plain.contract.event.PlainEvent;
 
 public final class TitlePage implements Displayable {
 
@@ -22,6 +23,10 @@ public final class TitlePage implements Displayable {
 	@Override
 	public void display() {
 		this.stage.setScene(this.scene());
+	}
+	
+	public void addNewEvent(final PlainEvent event) {
+		this.newEvents.add(event);
 	}
 	
 	private Scene scene() {
@@ -39,6 +44,11 @@ public final class TitlePage implements Displayable {
 		bNew.setText("New");
 		bNew.setStyle("-fx-font-size:25");
 		bNew.setPrefWidth(150);
+		bNew.setOnAction(e->{
+			this.newEvents.forEach(event -> {
+				event.handle();
+			});
+		});
 		
 		final Button bLoad = new Button();
 		bLoad.setText("Load");
@@ -79,4 +89,5 @@ public final class TitlePage implements Displayable {
 	private final Stage stage;
 	
 	private final List<Scene> cache = new ArrayList<>();
+	private final List<PlainEvent> newEvents = new ArrayList<>();
 }
