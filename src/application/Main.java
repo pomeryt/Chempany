@@ -2,6 +2,7 @@ package application;
 	
 import application.page.MainPage;
 import application.page.TitlePage;
+import application.player.Player;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,18 +11,20 @@ public class Main extends Application {
 	@Override
 	public void start(final Stage stage) {
 		try {
-			// MainPage
-			final MainPage mainPage = new MainPage(stage);
+			// Player.
+			final Player player = new Player();
 			
+			// MainPage.
+			final MainPage mainPage = new MainPage(stage, player);
 			
-			// TitlePage
+			// TitlePage.
 			final TitlePage titlePage = new TitlePage(stage);
 			titlePage.addNewEvent(()->{
 				mainPage.display();
 			});
 			titlePage.display();
 			
-			// Stage
+			// Stage.
 			stage.setTitle("Alchemy");
 			stage.setWidth(825);
 			stage.setHeight(550);
