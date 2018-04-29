@@ -2,25 +2,40 @@ package application.page.component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import plain.map.FlagMap;
+import plain.map.FormalMap;
 
 public final class EscScreen {
-	public void toggleEsc(final Pane root) {
-		if(root.getChildren().contains(this.pane())) {
-			root.getChildren().remove(this.pane());
-			return;
-		}
-		root.getChildren().add(this.pane());
+	public EscScreen(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+		this.flagMap = flagMap;
 	}
 	
+	public void toggleEsc(final Pane root) {
+		// Hide ESC option.
+		if(root.getChildren().contains(this.pane())) {
+			root.getChildren().remove(this.pane());
+			this.flagMap.update("esc", false);
+			return;
+		}
+		
+		// show ESC option.
+		root.getChildren().add(this.pane());
+		this.flagMap.update("esc", true);
+	}
 	
-
+	public void workWithPane(final Consumer<StackPane> task) {
+		task.accept(this.pane());
+	}
+	
 	private StackPane pane() {
 		
 		if(this.cache.isEmpty() == false) {
@@ -55,10 +70,13 @@ public final class EscScreen {
 		
 		pane.setMaxSize(200, 200);
 		StackPane.setAlignment(lMenuTitle, Pos.TOP_CENTER);
+		pane.setCache(true);
+		pane.setCacheHint(CacheHint.SCALE_AND_ROTATE);
 		
 		this.cache.add(pane);
 		return this.cache.get(0);
 	}
 	
 	private final List<StackPane> cache = new ArrayList<>();
+	private final FlagMap<String, FormalMap<String, Boolean>> flagMap;
 }
