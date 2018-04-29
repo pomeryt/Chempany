@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import javafx.geometry.Pos;
 import javafx.scene.CacheHint;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -19,16 +20,20 @@ public final class EscScreen {
 		this.flagMap = flagMap;
 	}
 	
-	public void toggleEsc(final Pane root) {
-		// Hide ESC option.
+	public void toggleEsc(final Pane root, final Scene scene) {
+		// Hide ESC option:
 		if(root.getChildren().contains(this.pane())) {
 			root.getChildren().remove(this.pane());
+			// Update flag as ESC option is not on the screen.
 			this.flagMap.update("esc", false);
 			return;
 		}
 		
-		// show ESC option.
+		// show ESC option:
+		// Fit location of ESC option to camera.
+		this.pane().setTranslateZ(scene.getCamera().getTranslateZ());
 		root.getChildren().add(this.pane());
+		// Update flag as ESC option is on the screen.
 		this.flagMap.update("esc", true);
 	}
 	

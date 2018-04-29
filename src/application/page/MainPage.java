@@ -67,7 +67,7 @@ public final class MainPage {
 				});
 				
 				// Display Options.
-				this.escScreen.toggleEsc(this.root());
+				this.escScreen.toggleEsc(this.root(), scene);
 			}
 		});
 		

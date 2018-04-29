@@ -93,18 +93,23 @@ public final class Player {
 
 		// Zoom in/out.
 		eventScene.addScrollEvent(scroll -> {
-			// Not allowed to zoom in more than 600.
-			if (scroll.getDeltaY() > 0 && this.camera.getTranslateZ() > 600) {
-				return;
-			}
+			final Runnable runnable = () -> {
+				// Not allowed to zoom in more than 600.
+				if (scroll.getDeltaY() > 0 && this.camera.getTranslateZ() > 600) {
+					return;
+				}
+				
+				// Not allowed to zoom out less than -800.
+				if (scroll.getDeltaY() < 0 && this.camera.getTranslateZ() < -800) {
+					return;
+				}
+				
+				// Zoom in or out.
+				this.camera.setTranslateZ(this.camera.getTranslateZ()+scroll.getDeltaY());
+			};
 			
-			// Not allowed to zoom out less than -800.
-			if (scroll.getDeltaY() < 0 && this.camera.getTranslateZ() < -800) {
-				return;
-			}
-			
-			// Zoom in or out.
-			this.camera.setTranslateZ(this.camera.getTranslateZ()+scroll.getDeltaY());
+			// Make sure ESC option is not on the screen.
+			this.flagMap.run(new ConditionalRunForMap<>(runnable, new IsAllFalseInMap<>(Arrays.asList("esc"))));
 		});
 	}
 	
