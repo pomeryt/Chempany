@@ -93,6 +93,17 @@ public final class Player {
 
 		// Zoom in/out.
 		eventScene.addScrollEvent(scroll -> {
+			// Not allowed to zoom in more than 600.
+			if (scroll.getDeltaY() > 0 && this.camera.getTranslateZ() > 600) {
+				return;
+			}
+			
+			// Not allowed to zoom out less than -800.
+			if (scroll.getDeltaY() < 0 && this.camera.getTranslateZ() < -800) {
+				return;
+			}
+			
+			// Zoom in or out.
 			this.camera.setTranslateZ(this.camera.getTranslateZ()+scroll.getDeltaY());
 		});
 	}
