@@ -1,9 +1,8 @@
 package application.map;
 
-import static org.junit.Assert.assertThat;
-
 import java.awt.Point;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 

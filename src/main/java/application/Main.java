@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import plain.map.FlagMap;
 import plain.map.FormalMap;
 
-
 public class Main extends Application {
 	@Override
 	public void start(final Stage stage) {

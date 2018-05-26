@@ -2,7 +2,9 @@ package application.map;
 
 import java.awt.Point;
 
+import plain.contract.validation.ValueValidation;
 import plain.value.EventValue;
+import plain.value.update.ThrowableUpdate;
 
 /**
  * Created to calculate coordinate. <br>
@@ -20,6 +22,21 @@ public final class Turtle {
 	private Turtle(final EventValue<Integer> direction, final Point coordinate) {
 		this.direction = direction;
 		this.coordinate = coordinate;
+	}
+	
+	public void look(final int direction) {
+		this.direction.update(
+			new ThrowableUpdate<Integer>(
+				direction, 
+				"Invalid direction. You must choose from the following: 0 - north, 1 - east, 2 - south, 3 - west", 
+				new ValueValidation<Integer>() {
+					@Override
+					public boolean valid(final Integer value) {
+						return (value >= 0 && value <= 3);
+					}
+				}
+			)
+		);
 	}
 	
 	public int facing() {

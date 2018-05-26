@@ -1,5 +1,7 @@
 package application.player;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,18 @@ public final class Player {
 		// Move.
 		eventScene.addKeyPressedEvent(keyEvent -> {
 			final Runnable runnable = () -> {
+				this.body().execute(node -> {
+					final double px = node.getTranslateX();
+					final double py = node.getTranslateY();
+					final double blockSize = 50;
+					final double multiplier = 20;
+					final double cx = new BigDecimal(px / (blockSize * multiplier)).setScale(0, RoundingMode.DOWN).doubleValue();
+					final double cy = new BigDecimal(py / (blockSize * multiplier)).setScale(0, RoundingMode.DOWN).doubleValue();
+					final double bx = new BigDecimal(px / (blockSize)).setScale(0, RoundingMode.DOWN).doubleValue();
+					final double by = new BigDecimal(py / (blockSize)).setScale(0, RoundingMode.DOWN).doubleValue();
+					System.out.println(node.getTranslateX() + ", "+node.getTranslateY() + " -> "+ bx + ", "+by + " -> "+ cx + ", "+cy);
+				});
+				
 				// Go up.
 				if (keyEvent.getCode().equals(KeyCode.W)) {
 					this.body().move(new Up2DWithCamera(this.camera, this.speed));
