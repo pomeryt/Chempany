@@ -4,7 +4,9 @@ apply plugin: 'eclipse'
 apply plugin: "jacoco"
 
 repositories {
-	mavenCentral()
+	jcenter()
+	
+	maven { url 'http://dl.bintray.com/pomeryt/MyObjects/'}
 }
 
 dependencies {
@@ -13,8 +15,7 @@ dependencies {
 	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
 	testImplementation 'org.hamcrest:hamcrest-library:1.3'
 	
-	// Tentative library.
-	compile files('libs/myobjects3.2.0.jar')
+	compile 'pomeryt.myobjects:myobjects:3.2.0'
 }
 
 test {
