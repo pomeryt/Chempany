@@ -1,5 +1,6 @@
 package application;
 	
+import application.map.MainMap;
 import application.page.MainPage;
 import application.page.TitlePage;
 import application.player.Player;
@@ -15,8 +16,11 @@ public class Main extends Application {
 			// FlagMap.
 			final FlagMap<String, FormalMap<String, Boolean>> flagMap = this.newFlagMap();
 			
+			// MainMap.
+			final MainMap mainMap = new MainMap();
+			
 			// Player.
-			final Player player = new Player(flagMap);
+			final Player player = new Player(flagMap, mainMap);
 			
 			// MainPage.
 			final MainPage mainPage = new MainPage(stage, player, flagMap);

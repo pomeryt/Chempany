@@ -8,6 +8,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import org.hamcrest.core.IsEqual;
 import org.junit.jupiter.api.Test;
 
+import application.turtle.base.BtrCoordinate;
+
 class TornadoPatternTest {
 
 	@Test
@@ -19,8 +21,8 @@ class TornadoPatternTest {
 			turtle -> {
 				points.add(
 					new Point(
-						(int) turtle.coordinate().getX(),
-						(int) turtle.coordinate().getY()
+						turtle.valueOf(new BtrCoordinate()).x,
+						turtle.valueOf(new BtrCoordinate()).y
 					)
 				);
 			}

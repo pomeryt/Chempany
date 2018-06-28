@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import application.map.MainMap;
 import application.page.component.EventScene;
 import javafx.node.MovingNode;
 import javafx.node.task.SwitchPane;
@@ -24,8 +25,9 @@ import plain.map.task.ConditionalRunForMap;
 import plain.validation.map.IsAllFalseInMap;
 
 public final class Player {
-	public Player(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+	public Player(final FlagMap<String, FormalMap<String, Boolean>> flagMap, MainMap mainMap) {
 		this.flagMap = flagMap;
+		this.mainMap = mainMap;
 	}
 	
 	public void spawn(final EventScene eventScene, final Pane field) {
@@ -48,6 +50,7 @@ public final class Player {
 					final double bx = new BigDecimal(px / (blockSize)).setScale(0, RoundingMode.DOWN).doubleValue();
 					final double by = new BigDecimal(py / (blockSize)).setScale(0, RoundingMode.DOWN).doubleValue();
 					System.out.println(node.getTranslateX() + ", "+node.getTranslateY() + " -> "+ bx + ", "+by + " -> "+ cx + ", "+cy);
+					System.out.println(node.getTranslateX()+", "+node.getTranslateY()+" "+this.mainMap.currentChunkCoordOfUser(node.getTranslateX(), node.getTranslateY()).toString());
 				});
 				
 				// Go up.
@@ -147,4 +150,5 @@ public final class Player {
 	private final List<MovingNode> cache = new ArrayList<>();
 	private final Camera camera = new PerspectiveCamera();
 	private final FlagMap<String, FormalMap<String, Boolean>> flagMap;
+	private final MainMap mainMap;
 }

@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import plain.contract.task.VoidTask;
 import plain.map.FlagMap;
 import plain.map.FormalMap;
 
@@ -31,6 +32,10 @@ public final class MainPage {
 			this.stage.setScene(scene);
 		});
 		this.player.spawn(this.eventScene(), this.root());
+	}
+	
+	public void workWithRoot(final VoidTask<Pane> task) {
+		task.handle(this.root());
 	}
 	
 	private Pane root() {
