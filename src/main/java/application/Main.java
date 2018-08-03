@@ -1,5 +1,7 @@
 package application;
 	
+import java.awt.Point;
+
 import application.chunk.Chunk;
 import application.chunk.ChunkOnPlayerCoordUpdate;
 import application.chunk.ChunkUpdatePlayerCoord;
@@ -17,8 +19,10 @@ import application.page.title.TpShow;
 import application.player.Player;
 import application.player.PlayerOnEnterField;
 import application.player.PlayerOnMove;
-import application.turtle.TurtleCoordinate;
+import application.player.PlayerXPos;
+import application.player.PlayerYPos;
 import application.utility.pattern.TornadoPattern;
+import application.utility.point.ChunkPointOfPlayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import plain.map.FlagMap;
@@ -33,14 +37,6 @@ public class Main extends Application {
 			
 			// Chunk.
 			final Chunk chunk = new Chunk();
-			chunk.workOn(new ChunkOnPlayerCoordUpdate(
-				point -> {System.out.println("Start to make pattern.");},
-				point -> {
-					new TornadoPattern(11, point, turtle -> {
-						System.out.println(turtle.valueOf(new TurtleCoordinate()));
-					}).makePattern();
-				}
-			));
 			
 			// MainPage.
 			final MainPage mainPage = new MainPage(flagMap);
@@ -53,9 +49,20 @@ public class Main extends Application {
 				)
 			);
 			player.workOn(
-				new PlayerOnMove(p -> {
-					new ChunkUpdatePlayerCoord(p).handle(chunk);
-				})
+				new PlayerOnMove(
+					p -> {
+						new ChunkUpdatePlayerCoord(p).handle(chunk);
+					},
+					p -> {
+						final double playerX = p.valueOf(new PlayerXPos());
+						final double playerY = p.valueOf(new PlayerYPos());
+						final Point chunkPoint = new ChunkPointOfPlayer(playerX, playerY, 5, 20).value();
+						System.out.println(
+							"Player Coord: ("+playerX+", "+playerY+")"
+							+ "\tChunk Coord: ("+chunkPoint.x+", "+chunkPoint.y+")"
+						);
+					}
+				)
 			);
 			
 			// TitlePage.
@@ -68,6 +75,19 @@ public class Main extends Application {
 			);
 			titlePage.workOn(new TpOnExit(new CloseStage(stage)));
 			titlePage.workOn(new TpShow(stage));
+			
+			chunk.workOn(new ChunkOnPlayerCoordUpdate(
+				point -> {
+					/*System.out.println(
+						player.valueOf(new PlayerXPos())+", "+player.valueOf(new PlayerYPos())
+					);*/
+				},
+				point -> {
+					new TornadoPattern(3, point, turtle -> {
+						// System.out.println(turtle.valueOf(new TurtleCoordinate()));
+					}).makePattern();
+				}
+			));
 			
 			// Stage.
 			stage.setTitle("Alchemy");

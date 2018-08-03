@@ -32,13 +32,13 @@ class TornadoPatternTest {
 		final List<Point> expectedPoints = new LinkedList<>();
 		expectedPoints.add(new Point(0, 0));
 		expectedPoints.add(new Point(1, 0));
-		expectedPoints.add(new Point(1, 1));
-		expectedPoints.add(new Point(0, 1));
-		expectedPoints.add(new Point(-1, 1));
-		expectedPoints.add(new Point(-1, 0));
-		expectedPoints.add(new Point(-1, -1));
-		expectedPoints.add(new Point(0, -1));
 		expectedPoints.add(new Point(1, -1));
+		expectedPoints.add(new Point(0, -1));
+		expectedPoints.add(new Point(-1, -1));
+		expectedPoints.add(new Point(-1, 0));
+		expectedPoints.add(new Point(-1, 1));
+		expectedPoints.add(new Point(0, 1));
+		expectedPoints.add(new Point(1, 1));
 		
 		assertThat(points, new IsEqual<>(expectedPoints));
 	}

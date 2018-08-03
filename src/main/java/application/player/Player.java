@@ -3,8 +3,12 @@ package application.player;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.node.MovingNode;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 import plain.contract.entity.MyEntity;
 import plain.contract.entity.ReturnTaskOfEntity;
 import plain.contract.entity.VoidTaskOfEntity;
@@ -38,16 +42,29 @@ public final class Player implements MyEntity<Player> {
 	
 	final FlagMap<String, FormalMap<String, Boolean>> flagMap;
 	
-	final CachedValue<MovingNode> cachedMovingNode = new CachedValue<>(() -> {
+	final CachedValue<Node> body = new CachedValue<>(() -> {
 		final StackPane pane = new StackPane();
+		
+		this.actionMap.register("up", () -> {});
+		this.actionMap.register("down", () -> {});
+		this.actionMap.register("left", () -> {});
+		this.actionMap.register("right", () -> {});
+		final Timeline timeLine = new Timeline();
+		final KeyFrame keyFrame = new KeyFrame(Duration.ONE, e -> {
+			this.actionMap.keys().forEach(key -> {
+				this.actionMap.value(key).run();
+			});
+		});
+		timeLine.getKeyFrames().add(keyFrame);
+		timeLine.setCycleCount(Animation.INDEFINITE);
+		timeLine.play();
+		
 		pane.setMaxSize(50, 50);
 		pane.setStyle("-fx-background-color: red");
 		
-		final MovingNode movingNode = new MovingNode(pane);
-		
-		return movingNode;
+		return pane;
 	});
-	
+	final FormalMap<String, Runnable> actionMap = new FormalMap<>();
 	final EventValue<Double> speed = new EventValue<>(0.5);
 	final List<ParamEvent<Player>> spawnEvents = new ArrayList<>();
 	final List<ParamEvent<Player>> moveEvents = new ArrayList<>();

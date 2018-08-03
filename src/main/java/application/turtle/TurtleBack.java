@@ -6,7 +6,8 @@ import plain.contract.entity.VoidTaskOfEntity;
  * Move backward in the facing direction. <br>
  * You can specify how many times turtle will go backward via constructor. <br>
  * The default amount of moving backward is one. <br>
- * Moving towards north increases y value of coordinate.
+ * Moving towards north decreases y value of coordinate. <br>
+ * The direction of coordinate system is same as computer screen.
  * @author Rin
  * @version 1.0.0
  */

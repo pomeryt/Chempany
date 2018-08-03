@@ -10,7 +10,8 @@ import plain.value.EventValue;
  * Move forward in the facing direction. <br>
  * You can specify how many times turtle will go forward via constructor. <br>
  * The default amount of moving forward is one. <br>
- * Moving towards north increases y value of coordinate.
+ * Moving towards north decreases y value of coordinate. <br>
+ * The direction of coordinate system is same as computer screen.
  * @author Rin
  * @version 1.0.0
  */
@@ -34,7 +35,7 @@ public final class TurtleForward implements VoidTaskOfEntity<Turtle> {
 	private void move(final EventValue<Integer> direction, final EventValue<Point> coordinate) {
 		// North.
 		if (direction.value() == 0) {
-			coordinate.value().translate(0, 1);
+			coordinate.value().translate(0, -1);
 			return;
 		}
 
@@ -46,7 +47,7 @@ public final class TurtleForward implements VoidTaskOfEntity<Turtle> {
 
 		// South.
 		if (direction.value() == 2) {
-			coordinate.value().translate(0, -1);
+			coordinate.value().translate(0, 1);
 			return;
 		}
 

@@ -11,7 +11,8 @@ import plain.contract.task.VoidTask;
  * Tornado pattern in counter clock-wise. <br>
  * The starts from center facing east. <br>
  * It uses BaseTurtle to make pattern. <br>
- * You can execute something with turtle in each movement.
+ * You can execute something with turtle in each movement. <br>
+ * The direction of coordinate system is same as computer screen.
  * @author Rin
  * @version 1.0.0
  */

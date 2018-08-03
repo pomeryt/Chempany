@@ -17,9 +17,9 @@ class TurtleBackTest {
 	void moveBackFacingNorthFromOrigin() {
 		final Turtle turtle = new Turtle(0, new Point(0, 0));
 		turtle.workOn(new TurtleBack());
-		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, -1)));
+		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, 1)));
 		turtle.workOn(new TurtleBack(3));
-		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, -4)));
+		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, 4)));
 		assertThat(turtle.valueOf(new TurtleFacing()), new IsEqual<>(0));
 	}
 	
@@ -37,9 +37,9 @@ class TurtleBackTest {
 	void moveBackFacingSouthFromOrigin() {
 		final Turtle turtle = new Turtle(2, new Point(0, 0));
 		turtle.workOn(new TurtleBack());
-		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, 1)));
+		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, -1)));
 		turtle.workOn(new TurtleBack(3));
-		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, 4)));
+		assertThat(turtle.valueOf(new TurtleCoordinate()), new IsEqual<>(new Point(0, -4)));
 		assertThat(turtle.valueOf(new TurtleFacing()), new IsEqual<>(2));
 	}
 
