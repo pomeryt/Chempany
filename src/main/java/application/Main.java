@@ -1,8 +1,10 @@
 package application;
 	
 import java.awt.Point;
+import java.lang.reflect.Field;
 
 import application.chunk.Chunk;
+import application.chunk.ChunkGenerateChunk;
 import application.chunk.ChunkOnPlayerCoordUpdate;
 import application.chunk.ChunkUpdatePlayerCoord;
 import application.event.param.EnablePlayerToMove;
@@ -21,6 +23,7 @@ import application.player.PlayerOnEnterField;
 import application.player.PlayerOnMove;
 import application.player.PlayerXPos;
 import application.player.PlayerYPos;
+import application.turtle.TurtleCoordinate;
 import application.utility.pattern.TornadoPattern;
 import application.utility.point.ChunkPointOfPlayer;
 import javafx.application.Application;
@@ -57,10 +60,11 @@ public class Main extends Application {
 						final double playerX = p.valueOf(new PlayerXPos());
 						final double playerY = p.valueOf(new PlayerYPos());
 						final Point chunkPoint = new ChunkPointOfPlayer(playerX, playerY, 5, 20).value();
-						System.out.println(
+						/*System.out.println(
 							"Player Coord: ("+playerX+", "+playerY+")"
 							+ "\tChunk Coord: ("+chunkPoint.x+", "+chunkPoint.y+")"
 						);
+						System.out.println();*/
 					}
 				)
 			);
@@ -78,14 +82,19 @@ public class Main extends Application {
 			
 			chunk.workOn(new ChunkOnPlayerCoordUpdate(
 				point -> {
-					/*System.out.println(
-						player.valueOf(new PlayerXPos())+", "+player.valueOf(new PlayerYPos())
-					);*/
+					new TornadoPattern(11, point, turtle -> {
+						chunk.workOn(new ChunkGenerateChunk(turtle.valueOf(new TurtleCoordinate())));
+					}).makePattern();
 				},
 				point -> {
-					new TornadoPattern(3, point, turtle -> {
-						// System.out.println(turtle.valueOf(new TurtleCoordinate()));
-					}).makePattern();
+					/*try { 
+					final Field field = chunk.getClass().getDeclaredField("loadedChunks");
+					field.setAccessible(true);
+					System.out.println(field.get(chunk));
+					System.out.println();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}*/
 				}
 			));
 			
