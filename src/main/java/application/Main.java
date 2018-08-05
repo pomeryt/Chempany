@@ -1,7 +1,6 @@
 package application;
 	
 import java.awt.Point;
-import java.lang.reflect.Field;
 
 import application.chunk.Chunk;
 import application.chunk.ChunkGenerateChunk;
@@ -59,7 +58,7 @@ public class Main extends Application {
 					p -> {
 						final double playerX = p.valueOf(new PlayerXPos());
 						final double playerY = p.valueOf(new PlayerYPos());
-						final Point chunkPoint = new ChunkPointOfPlayer(playerX, playerY, 5, 20).value();
+						final Point chunkPoint = new ChunkPointOfPlayer(playerX, playerY, 50, 20).value();
 						/*System.out.println(
 							"Player Coord: ("+playerX+", "+playerY+")"
 							+ "\tChunk Coord: ("+chunkPoint.x+", "+chunkPoint.y+")"
@@ -104,6 +103,7 @@ public class Main extends Application {
 			stage.setHeight(550);
 			stage.show();
 			
+			
 		} catch(Exception exception) {
 			exception.printStackTrace();
 		}
@@ -111,6 +111,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 	
 	private FlagMap<String, FormalMap<String, Boolean>> newFlagMap() {
