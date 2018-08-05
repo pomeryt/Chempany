@@ -26,3 +26,13 @@ hs_err_pid*
 .project
 build.fxbuild
 *.bin
+/.gradle/
+.settings/*
+build/*
+/build/
+
+.DS_Store
+
+!gradle-wrapper.jar
+
+log/**
