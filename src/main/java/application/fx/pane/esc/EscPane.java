@@ -1,32 +1,43 @@
-package application.page.component;
-
-import java.util.ArrayList;
-import java.util.List;
+package application.fx.pane.esc;
 
 import javafx.geometry.Pos;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import plain.contract.entity.MyEntity;
+import plain.contract.entity.ReturnTaskOfEntity;
+import plain.contract.entity.VoidTaskOfEntity;
+import plain.map.FlagMap;
+import plain.map.FormalMap;
+import plain.value.CachedValue;
 
-public final class EscScreen {
-	public void toggleEsc(final Pane root) {
-		if(root.getChildren().contains(this.pane())) {
-			root.getChildren().remove(this.pane());
-			return;
-		}
-		root.getChildren().add(this.pane());
+public final class EscPane implements MyEntity<EscPane> {
+
+	public EscPane(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+		this.flagMap = flagMap;
 	}
 	
-	
+	/**
+	 * @param task All types of this task have the prefix 'Ep'.
+	 */
+	@Override
+	public void workOn(final VoidTaskOfEntity<EscPane> task) {
+		task.handle(this);
+	}
 
-	private StackPane pane() {
-		
-		if(this.cache.isEmpty() == false) {
-			return this.cache.get(0);			
-		}
-		
+	/**
+	 * @param task All types of this task have the prefix 'Ep'.
+	 */
+	@Override
+	public <T> T valueOf(final ReturnTaskOfEntity<T, EscPane> task) {
+		return task.handle(this);
+	}
+	
+	final FlagMap<String, FormalMap<String, Boolean>> flagMap;
+	
+	final CachedValue<StackPane> cachedRoot = new CachedValue<>(() -> {
 		final Button bSave = new Button();
 		bSave.setText("Save");
 		bSave.setPrefWidth(80);
@@ -55,10 +66,9 @@ public final class EscScreen {
 		
 		pane.setMaxSize(200, 200);
 		StackPane.setAlignment(lMenuTitle, Pos.TOP_CENTER);
+		pane.setCache(true);
+		pane.setCacheHint(CacheHint.SCALE_AND_ROTATE);
 		
-		this.cache.add(pane);
-		return this.cache.get(0);
-	}
-	
-	private final List<StackPane> cache = new ArrayList<>();
+		return pane;
+	});
 }

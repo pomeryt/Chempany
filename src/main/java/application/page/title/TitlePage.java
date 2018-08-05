@@ -1,4 +1,4 @@
-package application.page;
+package application.page.title;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,30 +10,31 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import plain.contract.entity.MyEntity;
+import plain.contract.entity.ReturnTaskOfEntity;
+import plain.contract.entity.VoidTaskOfEntity;
 import plain.contract.event.PlainEvent;
+import plain.value.CachedValue;
 
-public final class TitlePage {
+public final class TitlePage implements MyEntity<TitlePage> {
+	
+	/**
+	 * @param task All types of this task have the prefix 'Tp'.
+	 */
+	@Override
+	public void workOn(final VoidTaskOfEntity<TitlePage> task) {
+		task.handle(this);
+	}
 
-	public TitlePage(final Stage stage) {
-		this.stage = stage;
+	/**
+	 * @param task All types of this task have the prefix 'Tp'.
+	 */
+	@Override
+	public <T> T valueOf(final ReturnTaskOfEntity<T, TitlePage> task) {
+		return task.handle(this);
 	}
 	
-	public void display() {
-		this.stage.setScene(this.scene());
-	}
-	
-	public void addNewEvent(final PlainEvent event) {
-		this.newEvents.add(event);
-	}
-	
-	private Scene scene() {
-		// Return scene from cache if exists.
-		if (this.cache.isEmpty() == false) {
-			return this.cache.get(0);
-		}
-		
-		// Build scene:
+	final CachedValue<Scene> cachedScene = new CachedValue<>(() -> {
 		final Label lTitle = new Label();
 		lTitle.setText("Alchemy");
 		lTitle.setStyle("-fx-font-size:100");
@@ -43,9 +44,7 @@ public final class TitlePage {
 		bNew.setStyle("-fx-font-size:25");
 		bNew.setPrefWidth(150);
 		bNew.setOnAction(e->{
-			this.newEvents.forEach(event -> {
-				event.handle();
-			});
+			this.newEvents.forEach(event -> event.handle());
 		});
 		
 		final Button bLoad = new Button();
@@ -63,7 +62,7 @@ public final class TitlePage {
 		bExit.setStyle("-fx-font-size:25");
 		bExit.setPrefWidth(150);
 		bExit.setOnAction(e->{
-			this.stage.close();
+			this.exitEvents.forEach(event -> event.handle());
 		});
 		
 		final GridPane gridButtons = new GridPane();
@@ -77,15 +76,8 @@ public final class TitlePage {
 		pane.getChildren().add(gridButtons);
 		StackPane.setAlignment(lTitle, Pos.TOP_CENTER);
 		
-		final Scene scene = new Scene(pane);
-		
-		// Cache the scene:
-		this.cache.add(scene);
-		return this.cache.get(0);
-	}
-	
-	private final Stage stage;
-	
-	private final List<Scene> cache = new ArrayList<>();
-	private final List<PlainEvent> newEvents = new ArrayList<>();
+		return new Scene(pane);
+	});
+	final List<PlainEvent> newEvents = new ArrayList<>();
+	final List<PlainEvent> exitEvents = new ArrayList<>();
 }
