@@ -28,7 +28,7 @@ public class Log {
 		int month = cal.get(Calendar.MONTH) + 1;
 		int date = cal.get(Calendar.DATE);
 		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		String fileName = "log/User Access Log " + year + "_" + month + "_" + date + "_" + hour + ".log";
+		String fileName = "log/Alchemist_" + year + "_" + month + "_" + date + "_" + hour + ".log";
 
 		return fileName;
 	}
