@@ -86,7 +86,7 @@ public class Main extends Application {
 					}).makePattern();
 				},
 				point -> {
-					/*try { 
+					/*try {
 					final Field field = chunk.getClass().getDeclaredField("loadedChunks");
 					field.setAccessible(true);
 					System.out.println(field.get(chunk));
