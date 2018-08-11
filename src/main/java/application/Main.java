@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import application.chunk.Chunk;
 import application.chunk.ChunkGenerateChunk;
+import application.chunk.ChunkHideChunkBoundaries;
 import application.chunk.ChunkOnPlayerCoordUpdate;
 import application.chunk.ChunkShowChunkBoundaries;
 import application.chunk.ChunkUpdatePlayerCoord;
@@ -100,11 +101,13 @@ public class Main extends Application {
 			
 			flagMap.value("showChunkBoundaries").addEvent(isTrue -> {
 				if (isTrue) {
-					chunk.workOn(
-						new ChunkShowChunkBoundaries(
-							mainPage.valueOf(new MpRoot())
-						)
-					);
+					chunk.workOn(new ChunkShowChunkBoundaries(
+						mainPage.valueOf(new MpRoot())
+					));
+				} else {
+					chunk.workOn(new ChunkHideChunkBoundaries(
+						mainPage.valueOf(new MpRoot())
+					));
 				}
 			});
 			
