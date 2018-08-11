@@ -52,8 +52,10 @@ public final class ChunkShowSingleChunkBoundary implements VoidTaskOfEntity<Chun
 		});
 		
 		// Display boundary on the given pane.
-		if (pane.getChildren().contains(chunkBoundaries.get(this.chunkCoord)) == false) {
-			pane.getChildren().add(chunkBoundaries.get(this.chunkCoord));
+		final StackPane boundary = chunkBoundaries.get(this.chunkCoord);
+		if (pane.getChildren().contains(boundary) == false) {
+			pane.getChildren().add(boundary);
+			boundary.toBack();
 		}
 	}
 
