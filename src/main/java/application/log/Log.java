@@ -44,11 +44,11 @@ public class Log {
 
 	public void write(String className, String methodName, String message) {
 		new Thread(() -> {
-			// 메세지 생성
+			// Create message.
 
 			String outputMessage = makeOutputMessage(className, methodName, message);
 
-			// 파일생성
+			// Create file.
 
 			String fileName = makeFileName();
 
@@ -61,7 +61,7 @@ public class Log {
 				writer.newLine();
 				writer.close();
 			} catch (Exception e) {
-				throw new RuntimeException("file을 생성할수없거나 찾지 못합니다.", e);
+				throw new RuntimeException("Failed to create or find the file.", e);
 			}
 
 		}).start();
@@ -69,11 +69,11 @@ public class Log {
 
 	public void write(String className, String methodName, String message, Exception e) {
 		new Thread(() -> {
-			// 메세지 생성
+			// Create message.
 
 			String outputMessage = makeOutputMessage(className, methodName, message);
 
-			// 파일생성
+			// Create file.
 
 			try {
 				String fileName = makeFileName();
@@ -91,7 +91,7 @@ public class Log {
 				writer.close();
 
 			} catch (Exception e1) {
-				throw new RuntimeException("file을 생성할수없거나 찾지 못합니다.", e1);
+				throw new RuntimeException("Failed to create or find the file.", e1);
 			}
 
 		}).start();
