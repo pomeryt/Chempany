@@ -5,6 +5,7 @@ import java.awt.Point;
 import application.chunk.Chunk;
 import application.chunk.ChunkGenerateChunk;
 import application.chunk.ChunkOnPlayerCoordUpdate;
+import application.chunk.ChunkShowChunkBoundaries;
 import application.chunk.ChunkUpdatePlayerCoord;
 import application.event.param.EnablePlayerToMove;
 import application.event.plain.CloseStage;
@@ -97,12 +98,21 @@ public class Main extends Application {
 				}
 			));
 			
+			flagMap.value("showChunkBoundaries").addEvent(isTrue -> {
+				if (isTrue) {
+					chunk.workOn(
+						new ChunkShowChunkBoundaries(
+							mainPage.valueOf(new MpRoot())
+						)
+					);
+				}
+			});
+			
 			// Stage.
 			stage.setTitle("Alchemy");
 			stage.setWidth(825);
 			stage.setHeight(550);
 			stage.show();
-			
 			
 		} catch(Exception exception) {
 			exception.printStackTrace();

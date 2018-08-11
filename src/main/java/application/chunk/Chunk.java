@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import application.block.Block;
+import javafx.scene.layout.StackPane;
 import plain.contract.entity.MyEntity;
 import plain.contract.entity.ReturnTaskOfEntity;
 import plain.contract.entity.VoidTaskOfEntity;
@@ -29,4 +30,5 @@ public final class Chunk implements MyEntity<Chunk> {
 	final EventValue<Point> playerChunkCoord = new EventValue<Point>(new Point(0, 0));
 	final Map<Point, Block> blocks = new HashMap<>();
 	final List<Point> loadedChunks = new ArrayList<>();
+	final Map<Point, StackPane> chunkBoundaries = new HashMap<>();
 }
