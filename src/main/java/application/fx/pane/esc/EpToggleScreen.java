@@ -29,7 +29,7 @@ public final class EpToggleScreen implements VoidTaskOfEntity<EscPane> {
 		if(this.root.getChildren().contains(escPane)) {
 			this.root.getChildren().remove(escPane);
 			// Update flag as ESC option is not on the screen.
-			esc.flagMap.update("esc", false);
+			esc.flagMap.value("esc").update(false);
 			return;
 		}
 
@@ -40,7 +40,7 @@ public final class EpToggleScreen implements VoidTaskOfEntity<EscPane> {
 		escPane.setTranslateZ(this.camera.getTranslateZ());
 		this.root.getChildren().add(escPane);
 		// Update flag as ESC option is on the screen.
-		esc.flagMap.update("esc", true);
+		esc.flagMap.value("esc").update(true);
 	}
 
 	private final Pane root;

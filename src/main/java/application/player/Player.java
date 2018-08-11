@@ -13,17 +13,12 @@ import plain.contract.entity.MyEntity;
 import plain.contract.entity.ReturnTaskOfEntity;
 import plain.contract.entity.VoidTaskOfEntity;
 import plain.contract.event.ParamEvent;
-import plain.map.FlagMap;
 import plain.map.FormalMap;
 import plain.value.CachedValue;
 import plain.value.EventValue;
 
 public final class Player implements MyEntity<Player> {
-
-	public Player(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
-		this.flagMap = flagMap;
-	}
-
+	
 	/**
 	 * @param task All types of this task have the prefix 'Player'.
 	 */
@@ -39,8 +34,6 @@ public final class Player implements MyEntity<Player> {
 	public <T> T valueOf(final ReturnTaskOfEntity<T, Player> task) {
 		return task.handle(this);
 	}
-	
-	final FlagMap<String, FormalMap<String, Boolean>> flagMap;
 	
 	final CachedValue<Node> body = new CachedValue<>(() -> {
 		final StackPane pane = new StackPane();

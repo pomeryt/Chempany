@@ -10,13 +10,13 @@ import javafx.scene.layout.StackPane;
 import plain.contract.entity.MyEntity;
 import plain.contract.entity.ReturnTaskOfEntity;
 import plain.contract.entity.VoidTaskOfEntity;
-import plain.map.FlagMap;
-import plain.map.FormalMap;
+import plain.contract.map.GiveableMap;
 import plain.value.CachedValue;
+import plain.value.EventValue;
 
 public final class MainPage implements MyEntity<MainPage> {
 
-	public MainPage(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+	public MainPage(final GiveableMap<String, EventValue<Boolean>> flagMap) {
 		this(new EscPane(flagMap));
 	}
 	

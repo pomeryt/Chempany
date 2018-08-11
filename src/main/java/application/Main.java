@@ -27,15 +27,15 @@ import application.utility.pattern.TornadoPattern;
 import application.utility.point.ChunkPointOfPlayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import plain.map.FlagMap;
 import plain.map.FormalMap;
+import plain.value.EventValue;
 
 public class Main extends Application {
 	@Override
 	public void start(final Stage stage) {
 		try {
 			// FlagMap.
-			final FlagMap<String, FormalMap<String, Boolean>> flagMap = this.newFlagMap();
+			final FormalMap<String, EventValue<Boolean>> flagMap = this.newFlagMap();
 			
 			// Chunk.
 			final Chunk chunk = new Chunk();
@@ -44,7 +44,7 @@ public class Main extends Application {
 			final MainPage mainPage = new MainPage(flagMap);
 			
 			// Player.
-			final Player player = new Player(flagMap);
+			final Player player = new Player();
 			player.workOn(
 				new PlayerOnEnterField(
 					new EnablePlayerToMove(mainPage.valueOf(new MpEventScene()), flagMap)
@@ -114,9 +114,10 @@ public class Main extends Application {
 		
 	}
 	
-	private FlagMap<String, FormalMap<String, Boolean>> newFlagMap() {
-		final FlagMap<String, FormalMap<String, Boolean>> flagMap = new FlagMap<>(new FormalMap<>());
-		flagMap.register("esc", false);
+	private FormalMap<String, EventValue<Boolean>> newFlagMap() {
+		final FormalMap<String, EventValue<Boolean>> flagMap = new FormalMap<>();
+		flagMap.register("esc", new EventValue<>(false));
+		flagMap.register("showChunkBoundaries", new EventValue<>(false));
 		return flagMap;
 	}
 }

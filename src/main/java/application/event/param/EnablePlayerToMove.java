@@ -1,7 +1,5 @@
 package application.event.param;
 
-import java.util.Arrays;
-
 import application.fx.scene.event.EsCamera;
 import application.fx.scene.event.EsOnKeyPressed;
 import application.fx.scene.event.EsOnKeyReleased;
@@ -14,14 +12,12 @@ import application.player.PlayerMoveUp;
 import application.player.PlayerSpeed;
 import javafx.scene.input.KeyCode;
 import plain.contract.event.ParamEvent;
-import plain.map.FlagMap;
-import plain.map.FormalMap;
-import plain.map.task.ConditionalRunForMap;
-import plain.validation.map.IsAllFalseInMap;
+import plain.contract.map.GiveableMap;
+import plain.value.EventValue;
 
 public final class EnablePlayerToMove implements ParamEvent<Player> {
 
-	public EnablePlayerToMove(final EventScene eventScene, final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+	public EnablePlayerToMove(final EventScene eventScene, final GiveableMap<String, EventValue<Boolean>> flagMap) {
 		this.eventScene = eventScene;
 		this.flagMap = flagMap;
 	}
@@ -77,7 +73,9 @@ public final class EnablePlayerToMove implements ParamEvent<Player> {
 					}
 				};
 				
-				this.flagMap.run(new ConditionalRunForMap<>(runnable, new IsAllFalseInMap<>(Arrays.asList("esc"))));
+				if (this.flagMap.value("esc").value() == false) {
+					runnable.run();
+				}
 			})
 		);
 		
@@ -128,5 +126,5 @@ public final class EnablePlayerToMove implements ParamEvent<Player> {
 	}
 	
 	private final EventScene eventScene;
-	private final FlagMap<String, FormalMap<String, Boolean>> flagMap;
+	private final GiveableMap<String, EventValue<Boolean>> flagMap;
 }

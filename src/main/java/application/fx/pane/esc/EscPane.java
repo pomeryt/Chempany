@@ -14,13 +14,13 @@ import javafx.scene.layout.StackPane;
 import plain.contract.entity.MyEntity;
 import plain.contract.entity.ReturnTaskOfEntity;
 import plain.contract.entity.VoidTaskOfEntity;
-import plain.map.FlagMap;
-import plain.map.FormalMap;
+import plain.contract.map.GiveableMap;
 import plain.value.CachedValue;
+import plain.value.EventValue;
 
 public final class EscPane implements MyEntity<EscPane> {
 
-	public EscPane(final FlagMap<String, FormalMap<String, Boolean>> flagMap) {
+	public EscPane(final GiveableMap<String, EventValue<Boolean>> flagMap) {
 		this.flagMap = flagMap;
 	}
 	
@@ -93,7 +93,11 @@ public final class EscPane implements MyEntity<EscPane> {
 		paneBack.getChildren().add(bBack);
 		
 		final CheckBox cbDisplayChunkBoundaries = new CheckBox("Show Chunk Boundaries");
+		cbDisplayChunkBoundaries.setSelected(this.flagMap.value("showChunkBoundaries").value());
 		cbDisplayChunkBoundaries.setFocusTraversable(false);
+		cbDisplayChunkBoundaries.setOnAction(e -> {
+			this.flagMap.value("showChunkBoundaries").update(cbDisplayChunkBoundaries.isSelected());
+		});
 		final StackPane paneDisplayChunkBoundaries = new StackPane();
 		paneDisplayChunkBoundaries.getChildren().add(cbDisplayChunkBoundaries);
 		
@@ -108,7 +112,7 @@ public final class EscPane implements MyEntity<EscPane> {
 		return lvOptions;
 	}
 	
-	final FlagMap<String, FormalMap<String, Boolean>> flagMap;
+	final GiveableMap<String, EventValue<Boolean>> flagMap;
 	
 	final CachedValue<StackPane> cachedRoot = new CachedValue<>(() -> {
 		return this.generateRoot();
