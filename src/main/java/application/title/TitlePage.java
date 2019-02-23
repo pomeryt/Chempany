@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * Title Page.
@@ -38,6 +39,17 @@ public final class TitlePage {
 	}
 
 	/**
+	 * Close the stage when exit button is clicked.
+	 * @param stage It will be closed.
+	 * @since 1.0.0
+	 */
+	public void closeOnExit(final Stage stage) {
+		this.bExit.setOnAction(e -> {
+			stage.close();
+		});
+	}
+
+	/**
 	 * Create new GridPane instance that contains all buttons.
 	 * @return GridPane that contain buttons.
 	 * @since 1.0.0
@@ -54,11 +66,10 @@ public final class TitlePage {
 		final Button bOption = new Button("Option");
 		bOption.setPrefWidth(buttonWidth);
 
-		final Button bExit = new Button("Exit");
-		bExit.setPrefWidth(buttonWidth);
+		this.bExit.setPrefWidth(buttonWidth);
 
 		final GridPane gridButtons = new GridPane();
-		gridButtons.addColumn(0, bStart, bLoad, bOption, bExit);
+		gridButtons.addColumn(0, bStart, bLoad, bOption, this.bExit);
 		gridButtons.setAlignment(Pos.CENTER);
 
 		return gridButtons;
@@ -75,4 +86,9 @@ public final class TitlePage {
 	 * It should only be used in scene() method.
 	 */
 	private Scene rawScene;
+
+	/**
+	 * Exit button.
+	 */
+	private final Button bExit = new Button("Exit");
 }

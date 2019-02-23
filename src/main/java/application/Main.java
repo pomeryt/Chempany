@@ -14,6 +14,7 @@ public final class Main extends Application {
 	@Override
 	public void start(final Stage stage) throws Exception {
 		final TitlePage titlePage = new TitlePage();
+		titlePage.closeOnExit(stage);
 
 		final double width = 825;
 		final double height = 550;
