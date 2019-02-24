@@ -1,5 +1,6 @@
 package application.title;
 
+import application.overworld.Overworld;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,6 +15,16 @@ import javafx.stage.Stage;
  * @version 1.0.0
  */
 public final class TitlePage {
+
+	/**
+	 * Primary constructor.
+	 * @param stage Stage.
+	 * @param overworld Overworld.
+	 */
+	public TitlePage(final Stage stage, final Overworld overworld) {
+		this.stage = stage;
+		this.overworld = overworld;
+	}
 
 	/**
 	 * Cached.
@@ -39,17 +50,6 @@ public final class TitlePage {
 	}
 
 	/**
-	 * Close the stage when exit button is clicked.
-	 * @param stage It will be closed.
-	 * @since 1.0.0
-	 */
-	public void closeOnExit(final Stage stage) {
-		this.bExit.setOnAction(e -> {
-			stage.close();
-		});
-	}
-
-	/**
 	 * Create new GridPane instance that contains all buttons.
 	 * @return GridPane that contain buttons.
 	 * @since 1.0.0
@@ -59,6 +59,7 @@ public final class TitlePage {
 
 		final Button bStart = new Button("Start");
 		bStart.setPrefWidth(buttonWidth);
+		bStart.setOnAction(e -> this.stage.setScene(this.overworld.scene()));
 
 		final Button bLoad = new Button("Load");
 		bLoad.setPrefWidth(buttonWidth);
@@ -66,14 +67,26 @@ public final class TitlePage {
 		final Button bOption = new Button("Option");
 		bOption.setPrefWidth(buttonWidth);
 
-		this.bExit.setPrefWidth(buttonWidth);
+		final Button bExit = new Button("Exit");
+		bExit.setPrefWidth(buttonWidth);
+		bExit.setOnAction(e -> this.stage.close());
 
 		final GridPane gridButtons = new GridPane();
-		gridButtons.addColumn(0, bStart, bLoad, bOption, this.bExit);
+		gridButtons.addColumn(0, bStart, bLoad, bOption, bExit);
 		gridButtons.setAlignment(Pos.CENTER);
 
 		return gridButtons;
 	}
+
+	/**
+	 * Stage for displaying this page.
+	 */
+	private final Stage stage;
+
+	/**
+	 * This page navigates user to over world.
+	 */
+	private final Overworld overworld;
 
 	/**
 	 * Flag for caching the scene variable.
@@ -86,9 +99,4 @@ public final class TitlePage {
 	 * It should only be used in scene() method.
 	 */
 	private Scene rawScene;
-
-	/**
-	 * Exit button.
-	 */
-	private final Button bExit = new Button("Exit");
 }

@@ -1,5 +1,6 @@
 package application;
 
+import application.overworld.Overworld;
 import application.title.TitlePage;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,9 +13,8 @@ import javafx.stage.Stage;
 public final class Main extends Application {
 
 	@Override
-	public void start(final Stage stage) throws Exception {
-		final TitlePage titlePage = new TitlePage();
-		titlePage.closeOnExit(stage);
+	public void start(final Stage stage) {
+		final TitlePage titlePage = new TitlePage(stage, new Overworld());
 
 		final double width = 825;
 		final double height = 550;
