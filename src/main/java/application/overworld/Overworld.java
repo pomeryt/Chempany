@@ -1,28 +1,39 @@
 package application.overworld;
 
+import application.esc.EscScreen;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
 
 /**
  * Overworld.
  * @author Rin
- * @version 1.0.0
  */
 public final class Overworld {
 
 	/**
 	 * Cached.
 	 * @return Scene
-	 * @since 1.0.0
 	 */
 	public Scene scene() {
 		if (this.sceneBuilt) {
 			return this.rawScene;
 		}
 
-		final Pane root = new Pane();
+		final EscScreen escScreen = new EscScreen();
+
+		final StackPane root = new StackPane();
 
 		this.rawScene = new Scene(root);
+		this.rawScene.setOnKeyPressed(keyEvent -> {
+			if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
+				if (root.getChildren().contains(escScreen.root())) {
+					root.getChildren().remove(escScreen.root());
+				} else {
+					root.getChildren().add(escScreen.root());
+				}
+			}
+		});
 		this.sceneBuilt = true;
 
 		return this.rawScene;

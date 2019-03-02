@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 /**
  * Title Page.
  * @author Rin
- * @version 1.0.0
  */
 public final class TitlePage {
 
@@ -29,7 +28,6 @@ public final class TitlePage {
 	/**
 	 * Cached.
 	 * @return Scene
-	 * @since 1.0.0
 	 */
 	public Scene scene() {
 		if (this.sceneBuilt) {
@@ -52,7 +50,6 @@ public final class TitlePage {
 	/**
 	 * Create new GridPane instance that contains all buttons.
 	 * @return GridPane that contain buttons.
-	 * @since 1.0.0
 	 */
 	private GridPane gridButtons() {
 		final double buttonWidth = 100;
@@ -89,7 +86,7 @@ public final class TitlePage {
 	private final Overworld overworld;
 
 	/**
-	 * Flag for caching the scene variable.
+	 * Flag for caching the rawScene variable.
 	 * It should only be used in scene() method.
 	 */
 	private boolean sceneBuilt;
