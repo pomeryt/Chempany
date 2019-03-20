@@ -1,0 +1,4 @@
+/**
+ * Player.
+ */
+package application.player;

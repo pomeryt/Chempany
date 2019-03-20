@@ -1,8 +1,10 @@
 package application.overworld;
 
 import application.esc.EscScreen;
+import application.player.Player;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -25,7 +27,7 @@ public final class Overworld {
 		final StackPane root = new StackPane();
 
 		this.rawScene = new Scene(root);
-		this.rawScene.setOnKeyPressed(keyEvent -> {
+		this.rawScene.addEventHandler(KeyEvent.KEY_PRESSED, keyEvent -> {
 			if (keyEvent.getCode().equals(KeyCode.ESCAPE)) {
 				if (root.getChildren().contains(escScreen.root())) {
 					root.getChildren().remove(escScreen.root());
@@ -34,8 +36,11 @@ public final class Overworld {
 				}
 			}
 		});
-		this.sceneBuilt = true;
 
+		final Player player = new Player(this.rawScene);
+		root.getChildren().add(player.root());
+
+		this.sceneBuilt = true;
 		return this.rawScene;
 	}
 
