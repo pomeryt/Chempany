@@ -40,13 +40,13 @@ public final class EscScreen {
 
     /**
      * Flag for caching the rawRoot variable.
-     * It should only be used in root() method.
+     * It should only be used in body() method.
      */
     private boolean rootBuilt;
 
     /**
-     * The content will be filled by root() method.
-     * It should only be used in root() method.
+     * The content will be filled by body() method.
+     * It should only be used in body() method.
      */
     private final StackPane rawRoot = new StackPane();
 }

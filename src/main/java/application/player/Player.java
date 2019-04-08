@@ -2,44 +2,47 @@ package application.player;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Function;
 
 /**
  * Player.
  */
-public final class Player {
+public final class Player implements PlayerType {
 
     /**
      * Primary constructor.
      * @param scene Keyboard event on scene will be used.
+     * @param groupChunks Info at {@link Player#groupChunks}.
+     * @param size Info at {@link Player#size}.
      */
-    public Player(final Scene scene) {
+    public Player(final Scene scene, final Group groupChunks, final int size) {
         this.scene = scene;
+        this.groupChunks = groupChunks;
+        this.size = size;
     }
 
     /**
      * Cached.
      * @return Root pane of player.
      */
-    public StackPane root() {
+    @Override
+    public StackPane body() {
         if (this.rootBuilt) {
             return this.rawRoot;
         }
 
-        final Label lDirection = new Label();
-
-        final double size = 50;
-
-        this.rawRoot.setMaxSize(size, size);
+        this.rawRoot.setMaxSize(this.size, this.size);
+        this.rawRoot.setMinSize(this.size, this.size);
         this.rawRoot.setStyle("-fx-background-color: yellow;");
-        this.rawRoot.getChildren().add(lDirection);
 
         final AtomicBoolean upPressed = new AtomicBoolean(false);
         final AtomicBoolean downPressed = new AtomicBoolean(false);
@@ -50,12 +53,21 @@ public final class Player {
         this.handleKeyReleaseEvent(upPressed, downPressed, leftPressed, rightPressed);
 
         final Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(this.movingKeyFrame(upPressed, downPressed, leftPressed, rightPressed, lDirection));
+        timeline.getKeyFrames().add(this.movingKeyFrame(upPressed, downPressed, leftPressed, rightPressed));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
         this.rootBuilt = true;
         return this.rawRoot;
+    }
+
+    /**
+     * Construct new {@link Point} that represents the coordinates of this player.
+     * @return Coordinates of this player.
+     */
+    @Override
+    public Point position() {
+        return new Point(this.xPos, this.yPos);
     }
 
     /**
@@ -114,21 +126,20 @@ public final class Player {
      * @param downPressed Indicates user pressing down arrow.
      * @param leftPressed Indicates user pressing left arrow.
      * @param rightPressed Indicates user pressing right arrow.
-     * @param lDirection Label for indicating the direction.
      * @return KeyFrame.
      */
-    private KeyFrame movingKeyFrame(final AtomicBoolean upPressed, final AtomicBoolean downPressed, final AtomicBoolean leftPressed, final AtomicBoolean rightPressed, final Label lDirection) {
-        final int keyFrameDuration = 10;
+    private KeyFrame movingKeyFrame(final AtomicBoolean upPressed, final AtomicBoolean downPressed, final AtomicBoolean leftPressed, final AtomicBoolean rightPressed) {
         return new KeyFrame(
-            Duration.millis(keyFrameDuration),
+            Duration.millis(MOVING_KEYFRAME_DURATION),
             event -> {
                 for (final Direction direction : Direction.values()) {
                     if (direction.match(upPressed.get(), downPressed.get(), leftPressed.get(), rightPressed.get())) {
-                        lDirection.setText(direction.text());
-                        return;
+                        final Point newChunksPos = direction.move(this.groupChunks);
+                        final int opposite = -1;
+                        this.xPos = opposite * newChunksPos.x;
+                        this.yPos = opposite * newChunksPos.y;
                     }
                 }
-                lDirection.setText("");
             }
         );
     }
@@ -141,42 +152,142 @@ public final class Player {
         /**
          * Top-Left direction.
          */
-        TOP_LEFT(true, false, true, false, "↖︎"),
+        TOP_LEFT(
+            true,
+            false,
+            true,
+            false,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() + TRANSLATE_AMOUNT);
+                chunksPane.setTranslateY(chunksPane.getTranslateY() + TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Top-Right direction.
          */
-        TOP_RIGHT(true, false, false, true, "↗︎"),
+        TOP_RIGHT(
+            true,
+            false,
+            false,
+            true,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() - TRANSLATE_AMOUNT);
+                chunksPane.setTranslateY(chunksPane.getTranslateY() + TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Top direction.
          */
-        TOP(true, false, false, false, "↑"),
+        TOP(
+            true,
+            false,
+            false,
+            false,
+            chunksPane -> {
+                chunksPane.setTranslateY(chunksPane.getTranslateY() + TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Bottom-Left direction.
          */
-        BOTTOM_LEFT(false, true, true, false, "↙︎"),
+        BOTTOM_LEFT(
+            false,
+            true,
+            true,
+            false,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() + TRANSLATE_AMOUNT);
+                chunksPane.setTranslateY(chunksPane.getTranslateY() - TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Bottom-Right direction.
          */
-        BOTTOM_RIGHT(false, true, false, true, "↘︎"),
+        BOTTOM_RIGHT(
+            false,
+            true,
+            false,
+            true,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() - TRANSLATE_AMOUNT);
+                chunksPane.setTranslateY(chunksPane.getTranslateY() - TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Bottom direction.
          */
-        BOTTOM(false, true, false, false, "↓"),
+        BOTTOM(
+            false,
+            true,
+            false,
+            false,
+            chunksPane -> {
+                chunksPane.setTranslateY(chunksPane.getTranslateY() - TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Left direction.
          */
-        LEFT(false, false, true, false, "←"),
+        LEFT(
+            false,
+            false,
+            true,
+            false,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() + TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        ),
 
         /**
          * Right direction.
          */
-        RIGHT(false, false, false, true, "→");
+        RIGHT(
+            false,
+            false,
+            false,
+            true,
+            chunksPane -> {
+                chunksPane.setTranslateX(chunksPane.getTranslateX() - TRANSLATE_AMOUNT);
+                return new Point(
+                    (int) chunksPane.getTranslateX(),
+                    (int) chunksPane.getTranslateY()
+                );
+            }
+        );
 
         /**
          * Primary constructor.
@@ -184,14 +295,14 @@ public final class Player {
          * @param downPressed Indicates user pressing down arrow.
          * @param leftPressed Indicates user pressing left arrow.
          * @param rightPressed Indicates user pressing right arrow.
-         * @param text Direction in text.
+         * @param action Info at {@link Direction#action}.
          */
-        Direction(final boolean upPressed, final boolean downPressed, final boolean leftPressed, final boolean rightPressed, final String text) {
+        Direction(final boolean upPressed, final boolean downPressed, final boolean leftPressed, final boolean rightPressed, final Function<Group, Point> action) {
             this.upPressed = upPressed;
             this.downPressed = downPressed;
             this.leftPressed = leftPressed;
             this.rightPressed = rightPressed;
-            this.text = text;
+            this.action = action;
         }
 
         /**
@@ -207,11 +318,14 @@ public final class Player {
         }
 
         /**
-         * Text representation of direction.
-         * @return Direction.
+         * Move the player.
+         * Actually, the player itself will not move.
+         * Instead, the entire chunks will be moved in opposite way to simulate the player movement.
+         * @param groupChunks This will be translated to simulate the player movement.
+         * @return New player position. See {@link Direction#action}.
          */
-        public String text() {
-            return this.text;
+        public Point move(final Group groupChunks) {
+            return this.action.apply(groupChunks);
         }
 
         /**
@@ -235,9 +349,12 @@ public final class Player {
         private final boolean rightPressed;
 
         /**
-         * String representation of direction.
+         * It will take {@link Player#groupChunks} as parameter and translate its position.
+         * Then, it will return new {@link Player#groupChunks} position.
+         * Player should update {@link Player#xPos} and {@link Player#yPos}.
+         * Note, the player position should be in opposite direction to the {@link Player#groupChunks}.
          */
-        private final String text;
+        private final Function<Group, Point> action;
     }
 
     /**
@@ -246,14 +363,49 @@ public final class Player {
     private final Scene scene;
 
     /**
-     * Flag to cache the root pane.
-     * It should only be used in root() method.
+     * We simulate the player movement by translating the chunks in opposite to the player direction.
+     * This group contains all chunks and will be translated.
+     */
+    private final Group groupChunks;
+
+    /**
+     * The size of player.
+     */
+    private final int size;
+
+    /**
+     * Position on x-axis.
+     * Default value is 0.
+     */
+    private int xPos;
+
+    /**
+     * Position on y-axis.
+     * Default value is 0.
+     */
+    private int yPos;
+
+    /**
+     * Flag to cache the body pane.
+     * It should only be used in body() method.
      */
     private boolean rootBuilt;
 
     /**
-     * Child nodes will be filled by root() method.
-     * It should only be used in root() method.
+     * Child nodes will be filled by body() method.
+     * It should only be used in body() method.
      */
     private final StackPane rawRoot = new StackPane();
+
+    /**
+     * The duration used in {@link Player#movingKeyFrame(AtomicBoolean, AtomicBoolean, AtomicBoolean, AtomicBoolean)} method.
+     * In every [this value] milliseconds, the player will move on screen if the user presses move-keys.
+     */
+    private static final int MOVING_KEYFRAME_DURATION = 10;
+
+    /**
+     * JavaFX translate amount.
+     * The player can move as frequent as {@link Player#MOVING_KEYFRAME_DURATION}.
+     */
+    private static final int TRANSLATE_AMOUNT = 3;
 }
