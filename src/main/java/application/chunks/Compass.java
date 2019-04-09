@@ -11,10 +11,11 @@ public final class Compass implements CompassType {
 
     /**
      * Primary constructor.
+     *
      * @param sideLengthOfBlock The length of square block for one side.
      * @param rowAmountInChunk Amount of blocks within one chunk.
-     *                    The shape of one chunk should be square.
-     *                    In other words, the square root of this value should be an integer.
+     *                         The shape of one chunk should be square.
+     *                         In other words, the square root of this value should be an integer.
      * @param player Target player to keep track of their chunk coordinates.
      */
     public Compass(final int sideLengthOfBlock, final int rowAmountInChunk, final PlayerType player) {
@@ -25,6 +26,7 @@ public final class Compass implements CompassType {
 
     /**
      * It calculates the chunk coordinates of player.
+     *
      * @return Chunk coordinates of the player.
      */
     @Override

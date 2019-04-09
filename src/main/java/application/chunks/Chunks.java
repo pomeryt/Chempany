@@ -20,6 +20,7 @@ public final class Chunks {
 
     /**
      * Primary constructor.
+     *
      * @param player Chunks will be generated around this player.
      * @param group Info at {@link Chunks#group}.
      */

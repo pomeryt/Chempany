@@ -17,6 +17,14 @@
     <module name="JavadocPackage"/>
 
     <!--
+    Checks whether files end with a new line.
+    -->
+    <module name="NewlineAtEndOfFile">
+        <property name="fileExtensions" value="java"/>
+        <property name="lineSeparator" value="lf"/>
+    </module>
+
+    <!--
     Checks that property files contain the same keys.
     -->
     <module name="Translation"/>
@@ -27,6 +35,14 @@
     <module name="FileLength">
         <property name="max" value="1000"/>
         <property name="fileExtensions" value="java"/>
+    </module>
+
+    <!--
+    TAB chars are not allowed anywhere.
+    -->
+    <module name="FileTabCharacter">
+        <property name="eachLine" value="true"/>
+        <property name="fileExtensions" value="java,txt,xml,xsl,xsd,properties,groovy,vm,MF,sh,sql,tokens,g,spec,css,csv"/>
     </module>
 
     <!--

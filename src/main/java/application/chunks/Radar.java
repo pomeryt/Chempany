@@ -12,6 +12,7 @@ public final class Radar {
 
     /**
      * Primary constructor.
+     *
      * @param compass This will provide the chunk coordinates of the player.
      * @param halfLength Half length of this radar.
      */
@@ -22,6 +23,7 @@ public final class Radar {
 
     /**
      * It will be used for chunk generation.
+     *
      * @return Chunk positions around the player.
      */
     public List<Point> chunkPositionsAroundPlayer() {

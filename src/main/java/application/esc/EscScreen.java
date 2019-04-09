@@ -13,6 +13,7 @@ public final class EscScreen {
 
     /**
      * Cached.
+     *
      * @return Root pane of ESC screen.
      */
     public StackPane root() {

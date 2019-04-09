@@ -9,6 +9,7 @@ public interface CompassType {
 
     /**
      * It calculates the chunk coordinates of player.
+     *
      * @return Chunk coordinates of the player.
      */
     Point chunkPos();

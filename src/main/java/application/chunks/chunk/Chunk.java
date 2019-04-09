@@ -14,6 +14,7 @@ public final class Chunk {
 
     /**
      * Primary constructor.
+     *
      * @param rowAmount Info at {@link Chunk#rowAmount}.
      */
     public Chunk(final int rowAmount) {
@@ -23,6 +24,7 @@ public final class Chunk {
     /**
      * Visual representation of chunk.
      * The body is persistent, which means the same pane will be returned if this method has already been called.
+     *
      * @return JavaFX UI.
      */
     public GridPane body() {
@@ -45,6 +47,7 @@ public final class Chunk {
     /**
      * Generate a block at random.
      * It generates 10% {@link Brick} and 90% {@link AirBlock} for prototyping.
+     *
      * @return New random block.
      */
     private BlockType blockByRandom() {

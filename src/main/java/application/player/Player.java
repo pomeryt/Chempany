@@ -20,6 +20,7 @@ public final class Player implements PlayerType {
 
     /**
      * Primary constructor.
+     *
      * @param scene Keyboard event on scene will be used.
      * @param groupChunks Info at {@link Player#groupChunks}.
      * @param size Info at {@link Player#size}.
@@ -32,6 +33,7 @@ public final class Player implements PlayerType {
 
     /**
      * Cached.
+     *
      * @return Root pane of player.
      */
     @Override
@@ -63,6 +65,7 @@ public final class Player implements PlayerType {
 
     /**
      * Construct new {@link Point} that represents the coordinates of this player.
+     *
      * @return Coordinates of this player.
      */
     @Override
@@ -73,6 +76,7 @@ public final class Player implements PlayerType {
     /**
      * When user presses the arrow button, it will set the corresponding direction value to true.
      * The values will be used to move the player in corresponding direction.
+     *
      * @param upPressed Indicates user pressing up arrow.
      * @param downPressed Indicates user pressing down arrow.
      * @param leftPressed Indicates user pressing left arrow.
@@ -98,6 +102,7 @@ public final class Player implements PlayerType {
     /**
      * When user presses the arrow button, it will set the corresponding direction value to false.
      * The values will be used to stop the player from moving in corresponding direction.
+     *
      * @param upPressed Indicates user pressing up arrow.
      * @param downPressed Indicates user pressing down arrow.
      * @param leftPressed Indicates user pressing left arrow.
@@ -122,6 +127,7 @@ public final class Player implements PlayerType {
 
     /**
      * KeyFrame that moves player.
+     *
      * @param upPressed Indicates user pressing up arrow.
      * @param downPressed Indicates user pressing down arrow.
      * @param leftPressed Indicates user pressing left arrow.
@@ -291,6 +297,7 @@ public final class Player implements PlayerType {
 
         /**
          * Primary constructor.
+         *
          * @param upPressed Indicates user pressing up arrow.
          * @param downPressed Indicates user pressing down arrow.
          * @param leftPressed Indicates user pressing left arrow.
@@ -307,6 +314,7 @@ public final class Player implements PlayerType {
 
         /**
          * Determine whether given direction matches this enum.
+         *
          * @param upPressed Indicates user pressing up arrow.
          * @param downPressed Indicates user pressing down arrow.
          * @param leftPressed Indicates user pressing left arrow.
@@ -321,6 +329,7 @@ public final class Player implements PlayerType {
          * Move the player.
          * Actually, the player itself will not move.
          * Instead, the entire chunks will be moved in opposite way to simulate the player movement.
+         *
          * @param groupChunks This will be translated to simulate the player movement.
          * @return New player position. See {@link Direction#action}.
          */
