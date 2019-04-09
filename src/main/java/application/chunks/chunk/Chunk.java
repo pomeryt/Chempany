@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import java.util.Random;
 
 /**
- * Single chunk that contains 11 * 11 blocks.
+ * Single chunk that contains ({@link Chunk#rowAmount})^2 blocks.
  */
 public final class Chunk {
 
