@@ -29,8 +29,6 @@ public final class Overworld {
 
         final StackPane root = new StackPane();
 
-        this.buildEscScreen(this.rawScene, root);
-
         this.rawScene = new Scene(root);
 
         final int playerSize = 50;
@@ -50,6 +48,10 @@ public final class Overworld {
         root.getChildren().add(panePlayerAndChunks);
 
         chunks.start();
+
+        // FIXME This line should be below the initialization of this.rawScene.
+        // FIXME The temporal coupling should be fixed somehow.
+        this.buildEscScreen(this.rawScene, root);
 
         this.sceneBuilt = true;
         return this.rawScene;
