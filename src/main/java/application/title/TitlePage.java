@@ -1,6 +1,6 @@
 package application.title;
 
-import application.overworld.Overworld;
+import application.overworld.OverworldType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -22,7 +22,7 @@ public final class TitlePage {
      * @param stage Stage.
      * @param overworld Overworld.
      */
-    public TitlePage(final Stage stage, final Overworld overworld) {
+    public TitlePage(final Stage stage, final OverworldType overworld) {
         this.stage = stage;
         this.overworld = overworld;
     }
@@ -61,6 +61,7 @@ public final class TitlePage {
         final Button bStart = new Button("Start");
         bStart.setPrefWidth(buttonWidth);
         bStart.setOnAction(e -> this.stage.setScene(this.overworld.scene()));
+        bStart.setId("startButton");
 
         final Button bLoad = new Button("Load");
         bLoad.setPrefWidth(buttonWidth);
@@ -69,6 +70,7 @@ public final class TitlePage {
         bOption.setPrefWidth(buttonWidth);
 
         final Button bExit = new Button("Exit");
+        bExit.setId("exitButton");
         bExit.setPrefWidth(buttonWidth);
         bExit.setOnAction(e -> this.stage.close());
 
@@ -87,7 +89,7 @@ public final class TitlePage {
     /**
      * This page navigates user to over world.
      */
-    private final Overworld overworld;
+    private final OverworldType overworld;
 
     /**
      * Flag for caching the rawScene variable.

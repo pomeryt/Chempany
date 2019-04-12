@@ -12,3 +12,12 @@ before_install:
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
+
+matrix:
+    include:
+        # Ubuntu Linux (trusty) / Oracle JDK 8 / Headless
+        - os: linux
+          dist: trusty
+          jdk: oraclejdk8
+          env:
+              - _JAVA_OPTIONS="-Djava.awt.headless=true -Dtestfx.robot=glass -Dtestfx.headless=true -Dprism.order=sw"

@@ -15,13 +15,14 @@ import javafx.scene.layout.StackPane;
  *
  * @author Rin
  */
-public final class Overworld {
+public final class Overworld implements OverworldType {
 
     /**
      * Cached.
      *
      * @return Scene
      */
+    @Override
     public Scene scene() {
         if (this.sceneBuilt) {
             return this.rawScene;
