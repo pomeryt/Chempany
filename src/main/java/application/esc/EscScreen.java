@@ -24,9 +24,11 @@ public final class EscScreen {
         final double buttonWidth = 100;
 
         final Button bSave = new Button("Save");
+        bSave.setId("saveButton");
         bSave.setPrefWidth(buttonWidth);
 
         final Button bOption = new Button("Option");
+        bOption.setId("optionButton");
         bOption.setPrefWidth(buttonWidth);
 
         final GridPane grid = new GridPane();
