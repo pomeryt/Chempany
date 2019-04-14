@@ -3,12 +3,12 @@ package application.chunks.chunk;
 import javafx.scene.layout.GridPane;
 
 /**
- * Interface for variable Chunk.
+ * Single chunk that contains {@link application.block.BlockType} objects.
+ * This will be used by {@link application.chunks.Chunks}.
  */
 public interface ChunkType {
     /**
      * Visual representation of chunk.
-     * The body is persistent, which means the same pane will be returned if this method has already been called.
      *
      * @return JavaFX UI.
      */
