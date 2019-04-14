@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * Single chunk that contains ({@link Chunk#rowAmount})^2 blocks.
  */
-public final class Chunk {
+public final class Chunk implements ChunkType {
 
     /**
      * Primary constructor.
@@ -27,6 +27,7 @@ public final class Chunk {
      *
      * @return JavaFX UI.
      */
+    @Override
     public GridPane body() {
         if (this.grid.getChildren().size() > 0) {
             return this.grid;
