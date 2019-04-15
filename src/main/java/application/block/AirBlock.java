@@ -12,6 +12,7 @@ public final class AirBlock implements BlockType {
         final double size = 50;
 
         final StackPane root = new StackPane();
+        root.setId("root");
         root.setMinSize(size, size);
         root.setMaxSize(size, size);
         root.setStyle("-fx-background-color: lightBlue;");
