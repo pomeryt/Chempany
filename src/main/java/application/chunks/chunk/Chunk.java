@@ -35,6 +35,7 @@ public final class Chunk implements ChunkType {
 
         this.grid.setMaxSize(0, 0);
         this.grid.setStyle("-fx-border-color: blue;");
+        this.grid.setId("chunkGrid");
 
         for (int y = 0; y < this.rowAmount; y++) {
             for (int x = 0; x < this.rowAmount; x++) {
