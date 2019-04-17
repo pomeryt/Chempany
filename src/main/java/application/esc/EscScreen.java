@@ -36,6 +36,7 @@ public final class EscScreen {
         grid.addColumn(0, bSave, bOption);
 
         this.rawRoot.getChildren().add(grid);
+        this.rawRoot.setId("escRoot");
         this.rootBuilt = true;
 
         return this.rawRoot;

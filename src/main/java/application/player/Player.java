@@ -45,6 +45,7 @@ public final class Player implements PlayerType {
         this.rawRoot.setMaxSize(this.size, this.size);
         this.rawRoot.setMinSize(this.size, this.size);
         this.rawRoot.setStyle("-fx-background-color: yellow;");
+        this.rawRoot.setId("playerBody");
 
         final AtomicBoolean upPressed = new AtomicBoolean(false);
         final AtomicBoolean downPressed = new AtomicBoolean(false);
