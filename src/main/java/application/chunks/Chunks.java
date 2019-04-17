@@ -1,7 +1,7 @@
 package application.chunks;
 
 import application.chunks.chunk.Chunk;
-import application.player.Player;
+import application.player.PlayerType;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,7 +24,7 @@ public final class Chunks {
      * @param player Chunks will be generated around this player.
      * @param group Info at {@link Chunks#group}.
      */
-    public Chunks(final Player player, final Group group) {
+    public Chunks(final PlayerType player, final Group group) {
         this.player = player;
         this.group = group;
     }
@@ -40,7 +40,7 @@ public final class Chunks {
         }
 
         final KeyFrame keyFrame = new KeyFrame(
-            Duration.millis(1000),
+            Duration.ZERO,
             event -> {
                 final Radar radar = new Radar(
                     new Compass(
@@ -62,7 +62,8 @@ public final class Chunks {
                 });
             }
         );
-        this.timeline.getKeyFrames().add(keyFrame);
+        final int duration = 1000;
+        this.timeline.getKeyFrames().addAll(keyFrame, new KeyFrame(Duration.millis(duration)));
         this.timeline.setCycleCount(Animation.INDEFINITE);
         this.timeline.play();
     }
@@ -70,7 +71,7 @@ public final class Chunks {
     /**
      * Chunks will be generated around this player.
      */
-    private final Player player;
+    private final PlayerType player;
 
     /**
      * This will be used as the root container for all chunks.
